@@ -85,7 +85,7 @@
               class="underline cursor-pointer text-[#8362F2]"
               @mouseenter="isHovered2 = true"
               @mouseleave="isHovered2 = false"
-              >{{ listCallingCode.length }} country</span
+              >{{ listCurrencies.length }} country</span
             >
             with this currency
           </p>
@@ -105,7 +105,7 @@
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: "IndexPage",
   data() {
     return {
       isHovered: false,
@@ -132,44 +132,44 @@ export default {
       },
       listCallingCode: [],
       listCurrencies: [],
-    }
+    };
   },
   mounted() {
-    this.fetchDetailCountry(this.$route.params.slug)
+    this.fetchDetailCountry(this.$route.params.slug);
   },
   methods: {
     async fetchDetailCountry(val) {
       await fetch(`https://restcountries.com/v2/name/${val}?fullText=true`)
         .then((response) => response.json())
         .then((data) => {
-          const detail = data.pop()
-          this.detailCountry.name = detail.name
-          this.detailCountry.position.lat = detail.latlng[0]
-          this.detailCountry.position.long = detail.latlng[1]
-          this.detailCountry.flag = detail.flags.png
-          this.detailCountry.spelling.id = detail.altSpellings[0]
-          this.detailCountry.spelling.nameSpell = detail.altSpellings[1]
-          this.detailCountry.spelling.nameFullSpell = detail.altSpellings[2]
-          this.detailCountry.callingCode = detail.callingCodes[0]
-          this.detailCountry.currency.code = detail.currencies[0].code
-          this.detailCountry.capital = detail.capital
-          this.detailCountry.region = detail.region
-          this.detailCountry.subRegion = detail.subregion
+          const detail = data.pop();
+          this.detailCountry.name = detail.name;
+          this.detailCountry.position.lat = detail.latlng[0];
+          this.detailCountry.position.long = detail.latlng[1];
+          this.detailCountry.flag = detail.flags.png;
+          this.detailCountry.spelling.id = detail.altSpellings[0];
+          this.detailCountry.spelling.nameSpell = detail.altSpellings[1];
+          this.detailCountry.spelling.nameFullSpell = detail.altSpellings[2];
+          this.detailCountry.callingCode = detail.callingCodes[0];
+          this.detailCountry.currency.code = detail.currencies[0].code;
+          this.detailCountry.capital = detail.capital;
+          this.detailCountry.region = detail.region;
+          this.detailCountry.subRegion = detail.subregion;
 
-          this.fetchCallingCode(this.detailCountry.callingCode)
-          this.fetchCurrencies(this.detailCountry.currency.code)
-        })
+          this.fetchCallingCode(this.detailCountry.callingCode);
+          this.fetchCurrencies(this.detailCountry.currency.code);
+        });
     },
     async fetchCallingCode(val) {
       await fetch(`https://restcountries.com/v2/callingcode/${val}`)
         .then((response) => response.json())
-        .then((data) => (this.listCallingCode = data))
+        .then((data) => (this.listCallingCode = data));
     },
     async fetchCurrencies(val) {
       await fetch(`https://restcountries.com/v2/currency/${val}`)
         .then((response) => response.json())
-        .then((data) => (this.listCurrencies = data))
+        .then((data) => (this.listCurrencies = data));
     },
   },
-}
+};
 </script>
